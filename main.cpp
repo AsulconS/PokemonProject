@@ -4,7 +4,7 @@
 #include<cstdlib>
 
 #define MOVSPEED 1
-#define SCALECONST 4
+#define SCALECONST 5
 
 using namespace sf;
 
@@ -29,6 +29,7 @@ public:
         sprite.setTextureRect(IntRect(24, 36, 16, 20));
         sprite.setScale(Vector2f(SCALECONST, SCALECONST));
         sprite.setPosition(112 * SCALECONST, 68 * SCALECONST);
+        
         collisionBox.setSize(Vector2f(16, 16));
         collisionBox.setScale(Vector2f(SCALECONST, SCALECONST));
         collisionBox.setPosition(112 * SCALECONST, 72 * SCALECONST);
@@ -38,7 +39,7 @@ public:
         return (((int)collisionBox.getPosition().x - (int)background.getPosition().x) % (16 * SCALECONST) == 0 &&
                 ((int)collisionBox.getPosition().y - (int)background.getPosition().y) % (16 * SCALECONST) == 0    ) ? 1 : 0;
     }
-    
+
     Sprite &getCharSprite() { return sprite; }
     RectangleShape &getCharCollisionBox() { return collisionBox; }
     Vector2f &getMovSpeed() { return movSpeed; }
@@ -55,7 +56,7 @@ int main() {
 
     // BACKGROUND
     Texture texture2;
-    if(!texture2.loadFromFile("images/palet_town_i.png")) {
+    if(!texture2.loadFromFile("images/pallet_town_i.png")) {
         system("echo No se pudo cargar la textura&pause");
         return EXIT_FAILURE;
     }
@@ -141,21 +142,25 @@ int main() {
         switch(character.getMovDir()) {
             case 'u':
                 charSprite.setTextureRect(IntRect(24, 68, 16, 20));
+                charSprite.setOrigin(Vector2f(0, 0));
                 charSprite.setScale(Vector2f(SCALECONST, SCALECONST));
                 charSprite.move(0, -MOVSPEED * SCALECONST); charCollisionBox.move(0, -MOVSPEED * SCALECONST); walkingCamera.move(0, -MOVSPEED * SCALECONST);
                 break;
             case 'd':
                 charSprite.setTextureRect(IntRect(24, 36, 16, 20));
+                charSprite.setOrigin(Vector2f(0, 0));
                 charSprite.setScale(Vector2f(SCALECONST, SCALECONST));
                 charSprite.move(0, MOVSPEED * SCALECONST); charCollisionBox.move(0, MOVSPEED * SCALECONST); walkingCamera.move(0, MOVSPEED * SCALECONST);
                 break;
             case 'r':
                 charSprite.setTextureRect(IntRect(24, 100, 16, 20));
-                charSprite.setScale(Vector2f(SCALECONST, SCALECONST));
+                charSprite.setOrigin(Vector2f(16, 0));
+                charSprite.setScale(Vector2f(-SCALECONST, SCALECONST));
                 charSprite.move(MOVSPEED * SCALECONST, 0); charCollisionBox.move(MOVSPEED * SCALECONST, 0); walkingCamera.move(MOVSPEED * SCALECONST, 0);
                 break;
             case 'l':
                 charSprite.setTextureRect(IntRect(24, 100, 16, 20));
+                charSprite.setOrigin(Vector2f(0, 0));
                 charSprite.setScale(Vector2f(SCALECONST, SCALECONST));
                 charSprite.move(-MOVSPEED * SCALECONST, 0); charCollisionBox.move(-MOVSPEED * SCALECONST, 0); walkingCamera.move(-MOVSPEED * SCALECONST, 0);
                 break;
@@ -168,7 +173,7 @@ int main() {
         window.draw(background);
         // Draw the sprite
         window.draw(charSprite);
-        //window.draw(charCollisionBox);
+        // window.draw(charCollisionBox);
         // Draw the string
         window.draw(text);
         // Update the window
