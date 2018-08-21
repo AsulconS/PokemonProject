@@ -19,7 +19,7 @@ private:
     char movDir;
 
 public:
-    Character() {
+    Character(const int xPos,  const int yPos) {
         // The initial Texture
         if(!texture.loadFromFile("images/red.png")) {
             system("echo No se pudo cargar la textura&pause");
@@ -28,11 +28,15 @@ public:
         sprite.setTexture(texture, 0);
         sprite.setTextureRect(IntRect(24, 36, 16, 20));
         sprite.setScale(Vector2f(SCALECONST, SCALECONST));
-        sprite.setPosition(112 * SCALECONST, 68 * SCALECONST);
-        
+        sprite.setPosition(xPos * SCALECONST, yPos * SCALECONST);
+
+        Vector2f posCollisionBox = sprite.getPosition();
+        posCollisionBox.y += 4 * SCALECONST;
+
         collisionBox.setSize(Vector2f(16, 16));
         collisionBox.setScale(Vector2f(SCALECONST, SCALECONST));
-        collisionBox.setPosition(112 * SCALECONST, 72 * SCALECONST);
+        collisionBox.setPosition(posCollisionBox);
+        // Collision box X: 112  Y: 72
     }
 
     bool isGrid(Sprite background) {
@@ -52,7 +56,7 @@ int main() {
     View walkingCamera(FloatRect(0, 0, 240 * SCALECONST, 160 * SCALECONST));
 
     // CHARACTER
-    Character character;
+    Character character(112, 68);
 
     // BACKGROUND
     Texture texture2;
