@@ -30,12 +30,9 @@ public:
         sprite.setScale(Vector2f(SCALECONST, SCALECONST));
         sprite.setPosition(xPos * SCALECONST, yPos * SCALECONST);
 
-        Vector2f posCollisionBox = sprite.getPosition();
-        posCollisionBox.y += 4 * SCALECONST;
-
         collisionBox.setSize(Vector2f(16, 16));
         collisionBox.setScale(Vector2f(SCALECONST, SCALECONST));
-        collisionBox.setPosition(posCollisionBox);
+        collisionBox.setPosition(xPos * SCALECONST, (yPos + 4) * SCALECONST);
         // Collision box X: 112  Y: 72
     }
 
