@@ -1,51 +1,7 @@
-#include<SFML/Audio.hpp>
-#include<SFML/Graphics.hpp>
-
-#include<cstdlib>
-
-#define MOVSPEED 1
-#define SCALECONST 5
+#include "main.h"
+#include "character.h"
 
 using namespace sf;
-
-int fExitFailure() { return EXIT_FAILURE; }
-
-class Character {
-private:
-    Sprite sprite;
-    Texture texture;
-    RectangleShape collisionBox;
-    Vector2f movSpeed;
-    char movDir;
-
-public:
-    Character(const int xPos,  const int yPos) {
-        // The initial Texture
-        if(!texture.loadFromFile("images/red.png")) {
-            system("echo No se pudo cargar la textura&pause");
-            fExitFailure();
-        }
-        sprite.setTexture(texture, 0);
-        sprite.setTextureRect(IntRect(24, 36, 16, 20));
-        sprite.setScale(Vector2f(SCALECONST, SCALECONST));
-        sprite.setPosition(xPos * SCALECONST, yPos * SCALECONST);
-
-        collisionBox.setSize(Vector2f(16, 16));
-        collisionBox.setScale(Vector2f(SCALECONST, SCALECONST));
-        collisionBox.setPosition(xPos * SCALECONST, (yPos + 4) * SCALECONST);
-        // Collision box X: 112  Y: 72
-    }
-
-    bool isGrid(Sprite background) {
-        return (((int)collisionBox.getPosition().x - (int)background.getPosition().x) % (16 * SCALECONST) == 0 &&
-                ((int)collisionBox.getPosition().y - (int)background.getPosition().y) % (16 * SCALECONST) == 0    ) ? 1 : 0;
-    }
-
-    Sprite &getCharSprite() { return sprite; }
-    RectangleShape &getCharCollisionBox() { return collisionBox; }
-    Vector2f &getMovSpeed() { return movSpeed; }
-    char &getMovDir() { return movDir; }
-};
 
 int main() {
     // WINDOW and VIEW
