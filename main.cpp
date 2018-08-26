@@ -66,6 +66,8 @@ int main() {
         }
         // If a key is pressed, character's movDir will change
         if(character.isGrid(background.getBgSprite())) {
+            if(Keyboard::isKeyPressed(Keyboard::Z)) character.getMovSpeed() = 2;
+            else character.getMovSpeed() = 1;
             char &charMovDir = character.getMovDir();
             if(Keyboard::isKeyPressed(Keyboard::Up)) {
                 charMovDir = 'u';
@@ -82,7 +84,7 @@ int main() {
             } else charMovDir = 'i';
         }
         
-        character.update(1, walkingCamera);
+        character.update(walkingCamera);
 
         window.clear(); // Clear screen
         window.setView(walkingCamera);

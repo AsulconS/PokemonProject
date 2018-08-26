@@ -9,7 +9,7 @@ private:
     Sprite sprite;
     Texture texture;
     RectangleShape collisionBox;
-    Vector2f movSpeed;
+    short movSpeed;
     char movDir;
     
     int fExitFailure();
@@ -19,12 +19,12 @@ public:
     bool isGrid(Sprite background);
 
     void draw(RenderWindow &window);
-    void update(const short multVel, View &walkingCamera);
+    void update(View &walkingCamera);
 
     // Getters
     Sprite &getCharSprite();
     RectangleShape &getCharCollisionBox();
-    Vector2f &getMovSpeed();
+    short &getMovSpeed();
     char &getMovDir();
 };
 
