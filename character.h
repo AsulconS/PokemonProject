@@ -1,6 +1,6 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
-#include "main.h"
+#include "global.h"
 
 using namespace sf;
 

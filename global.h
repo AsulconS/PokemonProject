@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef GLOBAL_H
+#define GLOBAL_H
 #include<SFML/Audio.hpp>
 #include<SFML/Graphics.hpp>
 #include<cstdlib>

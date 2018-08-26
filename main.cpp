@@ -1,4 +1,4 @@
-#include "main.h"
+#include "global.h"
 #include "character.h"
 
 using namespace sf;
