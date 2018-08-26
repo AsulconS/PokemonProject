@@ -1,5 +1,6 @@
 #include "global.h"
 #include "character.h"
+#include "background.h"
 
 using namespace sf;
 
@@ -8,18 +9,8 @@ int main() {
     RenderWindow window(VideoMode(240 * SCALECONST, 160 * SCALECONST), "Pokemon Project"); // The Native Resolution is 240 x 160 px
     View walkingCamera(FloatRect(0, 0, 240 * SCALECONST, 160 * SCALECONST));
 
-    // CHARACTER
-    Character character(112, 68);
-
-    // BACKGROUND
-    Texture texture2;
-    if(!texture2.loadFromFile("images/pallet_town_i.png")) {
-        system("echo No se pudo cargar la textura&pause");
-        return EXIT_FAILURE;
-    }
-    Sprite background(texture2, IntRect(5, 5, 176, 144));
-    background.setScale(Vector2f(SCALECONST, SCALECONST));
-    background.setPosition(32 * SCALECONST, -24 * SCALECONST);
+    Character character(112, 68); // CHARACTER
+    Background background(32, -24, "pallet_town_i"); // BACKGROUND
 
     // TEXT
     Font font;
@@ -45,13 +36,10 @@ int main() {
     Sound sound;
     sound.setBuffer(buffer);
 
-    // Play the music
-    music.play();
-    // Play the sound
-    sound.play();
+    music.play(); // Play the music
+    sound.play(); // Play the sound
 
-    // lastKey Variable
-    Keyboard::Key lastKey = Keyboard::Unknown;
+    Keyboard::Key lastKey = Keyboard::Unknown; // lastKey Variable
 
     window.setFramerateLimit(60);
 
@@ -77,7 +65,7 @@ int main() {
             }
         }
         // If a key is pressed, character's movDir will change
-        if(character.isGrid(background)) {
+        if(character.isGrid(background.getBgSprite())) {
             char &charMovDir = character.getMovDir();
             if(Keyboard::isKeyPressed(Keyboard::Up)) {
                 charMovDir = 'u';
@@ -93,48 +81,16 @@ int main() {
                 lastKey = event.key.code;
             } else charMovDir = 'i';
         }
-        // Step Movement
-        Sprite &charSprite = character.getCharSprite();
-        RectangleShape &charCollisionBox = character.getCharCollisionBox();
-        switch(character.getMovDir()) {
-            case 'u':
-                charSprite.setTextureRect(IntRect(24, 68, 16, 20));
-                charSprite.setOrigin(Vector2f(0, 0));
-                charSprite.setScale(Vector2f(SCALECONST, SCALECONST));
-                charSprite.move(0, -MOVSPEED * SCALECONST); charCollisionBox.move(0, -MOVSPEED * SCALECONST); walkingCamera.move(0, -MOVSPEED * SCALECONST);
-                break;
-            case 'd':
-                charSprite.setTextureRect(IntRect(24, 36, 16, 20));
-                charSprite.setOrigin(Vector2f(0, 0));
-                charSprite.setScale(Vector2f(SCALECONST, SCALECONST));
-                charSprite.move(0, MOVSPEED * SCALECONST); charCollisionBox.move(0, MOVSPEED * SCALECONST); walkingCamera.move(0, MOVSPEED * SCALECONST);
-                break;
-            case 'r':
-                charSprite.setTextureRect(IntRect(24, 100, 16, 20));
-                charSprite.setOrigin(Vector2f(16, 0));
-                charSprite.setScale(Vector2f(-SCALECONST, SCALECONST));
-                charSprite.move(MOVSPEED * SCALECONST, 0); charCollisionBox.move(MOVSPEED * SCALECONST, 0); walkingCamera.move(MOVSPEED * SCALECONST, 0);
-                break;
-            case 'l':
-                charSprite.setTextureRect(IntRect(24, 100, 16, 20));
-                charSprite.setOrigin(Vector2f(0, 0));
-                charSprite.setScale(Vector2f(SCALECONST, SCALECONST));
-                charSprite.move(-MOVSPEED * SCALECONST, 0); charCollisionBox.move(-MOVSPEED * SCALECONST, 0); walkingCamera.move(-MOVSPEED * SCALECONST, 0);
-                break;
-            default: break;
-        }
-        // Clear screen
-        window.clear();
+        
+        character.update(1, walkingCamera);
+
+        window.clear(); // Clear screen
         window.setView(walkingCamera);
-        // Draw the background
-        window.draw(background);
-        // Draw the sprite
-        window.draw(charSprite);
+        background.draw(window); // Draw the background
+        character.draw(window); // Draw the character
         // window.draw(charCollisionBox);
-        // Draw the string
-        window.draw(text);
-        // Update the window
-        window.display();
+        window.draw(text); // Draw the string
+        window.display(); // Update the window
     }
     return EXIT_SUCCESS;
 }

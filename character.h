@@ -18,6 +18,10 @@ public:
     Character(const int xPos, const int yPos);
     bool isGrid(Sprite background);
 
+    void draw(RenderWindow &window);
+    void update(const short multVel, View &walkingCamera);
+
+    // Getters
     Sprite &getCharSprite();
     RectangleShape &getCharCollisionBox();
     Vector2f &getMovSpeed();
