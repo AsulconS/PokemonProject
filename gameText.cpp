@@ -3,7 +3,7 @@
 using namespace sf;
 
 GameText::GameText(std::string nameFont, std::string nText) {
-    if(!font.loadFromFile("fonts/" + nameFont + ".ttf")) {
+    if(!font.loadFromFile("resources/fonts/" + nameFont + ".ttf")) {
         system("echo No se pudo cargar las fuentes&pause");
         fExitFailure();
     }

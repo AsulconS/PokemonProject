@@ -16,7 +16,7 @@ int main() {
 
     // MUSIC
     Music music;
-    if(!music.openFromFile("music/nice_music.wav")) {
+    if(!music.openFromFile("resources/music/nice_music.wav")) {
         system("echo No se pudo cargar la musica&pause");
         return EXIT_FAILURE;
     }

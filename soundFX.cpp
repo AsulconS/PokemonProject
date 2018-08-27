@@ -3,7 +3,7 @@
 using namespace sf;
 
 SoundFX::SoundFX(std::string nameSound) {
-	if(!buffer.loadFromFile("sounds/" + nameSound + ".wav")) {
+	if(!buffer.loadFromFile("resources/sounds/" + nameSound + ".wav")) {
         system("echo No se pudo cargar el sonido&pause");
         fExitFailure();
     }

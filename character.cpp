@@ -3,7 +3,7 @@
 using namespace sf;
 
 Character::Character(const int xPos,  const int yPos, std::string name) {
-    if(!texture.loadFromFile("images/" + name + ".png")) {
+    if(!texture.loadFromFile("resources/images/characters/" + name + ".png")) {
         system("echo No se pudo cargar la textura&pause");
         fExitFailure();
     }

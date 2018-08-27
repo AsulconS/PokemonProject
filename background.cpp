@@ -3,7 +3,7 @@
 using namespace sf;
 
 Background::Background(const int xPos, const int yPos, std::string nameOfBg) {
-    if(!sourceImage.loadFromFile("images/backgrounds/" + nameOfBg + ".png")) {
+    if(!sourceImage.loadFromFile("resources/images/backgrounds/" + nameOfBg + ".png")) {
         system("echo No se pudo cargar el escenario&pause");
         fExitFailure();
     }
