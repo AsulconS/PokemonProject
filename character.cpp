@@ -2,9 +2,8 @@
 
 using namespace sf;
 
-Character::Character(const int xPos,  const int yPos) {
-    // The initial Texture
-    if(!texture.loadFromFile("images/red.png")) {
+Character::Character(const int xPos,  const int yPos, std::string name) {
+    if(!texture.loadFromFile("images/" + name + ".png")) {
         system("echo No se pudo cargar la textura&pause");
         fExitFailure();
     }
@@ -12,12 +11,13 @@ Character::Character(const int xPos,  const int yPos) {
     sprite.setTextureRect(IntRect(24, 36, 16, 20));
     sprite.setScale(Vector2f(SCALECONST, SCALECONST));
     sprite.setPosition(xPos * SCALECONST, yPos * SCALECONST);
+    // Drawn Sprite X: 112  Y: 68
 
     collisionBox.setSize(Vector2f(16, 16));
     collisionBox.setScale(Vector2f(SCALECONST, SCALECONST));
     collisionBox.setPosition(xPos * SCALECONST, (yPos + 4) * SCALECONST);
     // Collision box X: 112  Y: 72
-    movSpeed = 1;
+    movSpeed = MOVSPEED;
 }
 
 int Character::fExitFailure() { return EXIT_FAILURE; }
@@ -29,31 +29,31 @@ bool Character::isGrid(Sprite background) {
 
 void Character::draw(RenderWindow &window) { window.draw(sprite); }
 
-void Character::update(View &walkingCamera) {
+void Character::update(View &mainCamera) {
     switch(movDir) {
         case 'u':
             sprite.setTextureRect(IntRect(24, 68, 16, 20));
             sprite.setOrigin(Vector2f(0, 0));
             sprite.setScale(Vector2f(SCALECONST, SCALECONST));
-            sprite.move(0, -movSpeed * SCALECONST); collisionBox.move(0, -movSpeed * SCALECONST); walkingCamera.move(0, -movSpeed * SCALECONST);
+            sprite.move(0, -movSpeed * SCALECONST); collisionBox.move(0, -movSpeed * SCALECONST); mainCamera.move(0, -movSpeed * SCALECONST);
             break;
         case 'd':
             sprite.setTextureRect(IntRect(24, 36, 16, 20));
             sprite.setOrigin(Vector2f(0, 0));
             sprite.setScale(Vector2f(SCALECONST, SCALECONST));
-            sprite.move(0, movSpeed * SCALECONST); collisionBox.move(0, movSpeed * SCALECONST); walkingCamera.move(0, movSpeed * SCALECONST);
+            sprite.move(0, movSpeed * SCALECONST); collisionBox.move(0, movSpeed * SCALECONST); mainCamera.move(0, movSpeed * SCALECONST);
             break;
         case 'r':
             sprite.setTextureRect(IntRect(24, 100, 16, 20));
             sprite.setOrigin(Vector2f(16, 0));
             sprite.setScale(Vector2f(-SCALECONST, SCALECONST));
-            sprite.move(movSpeed * SCALECONST, 0); collisionBox.move(movSpeed * SCALECONST, 0); walkingCamera.move(movSpeed * SCALECONST, 0);
+            sprite.move(movSpeed * SCALECONST, 0); collisionBox.move(movSpeed * SCALECONST, 0); mainCamera.move(movSpeed * SCALECONST, 0);
             break;
         case 'l':
             sprite.setTextureRect(IntRect(24, 100, 16, 20));
             sprite.setOrigin(Vector2f(0, 0));
             sprite.setScale(Vector2f(SCALECONST, SCALECONST));
-            sprite.move(-movSpeed * SCALECONST, 0); collisionBox.move(-movSpeed * SCALECONST, 0); walkingCamera.move(-movSpeed * SCALECONST, 0);
+            sprite.move(-movSpeed * SCALECONST, 0); collisionBox.move(-movSpeed * SCALECONST, 0); mainCamera.move(-movSpeed * SCALECONST, 0);
             break;
         default: break;
     }
@@ -61,5 +61,5 @@ void Character::update(View &walkingCamera) {
 
 Sprite &Character::getCharSprite() { return sprite; }
 RectangleShape &Character::getCharCollisionBox() { return collisionBox; }
-short &Character::getMovSpeed() { return movSpeed; }
+int &Character::getMovSpeed() { return movSpeed; }
 char &Character::getMovDir() { return movDir; }

@@ -9,22 +9,22 @@ private:
     Sprite sprite;
     Texture texture;
     RectangleShape collisionBox;
-    short movSpeed;
+    int movSpeed;
     char movDir;
     
     int fExitFailure();
 
 public:
-    Character(const int xPos, const int yPos);
+    Character(const int xPos, const int yPos, std::string name);
     bool isGrid(Sprite background);
 
     void draw(RenderWindow &window);
-    void update(View &walkingCamera);
+    void update(View &mainCamera);
 
     // Getters
     Sprite &getCharSprite();
     RectangleShape &getCharCollisionBox();
-    short &getMovSpeed();
+    int &getMovSpeed();
     char &getMovDir();
 };
 

@@ -6,4 +6,6 @@
 
 #define SCALECONST 5
 #define MOVSPEED 1
+#define CHARX 112
+#define CHARY 68
 #endif

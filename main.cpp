@@ -1,24 +1,18 @@
 #include "global.h"
 #include "character.h"
 #include "background.h"
+#include "gameText.h"
+#include "soundFX.h"
 
 using namespace sf;
 
 int main() {
-    // WINDOW and VIEW
-    RenderWindow window(VideoMode(240 * SCALECONST, 160 * SCALECONST), "Pokemon Project"); // The Native Resolution is 240 x 160 px
-    View walkingCamera(FloatRect(0, 0, 240 * SCALECONST, 160 * SCALECONST));
+    RenderWindow window(VideoMode(240 * SCALECONST, 160 * SCALECONST), "Pokemon Project"); // WINDOW    The Native Resolution is 240 x 160 px
+    View mainCamera(FloatRect(0, 0, 240 * SCALECONST, 160 * SCALECONST)); // CAMERA
 
-    Character character(112, 68); // CHARACTER
+    Character character(CHARX, CHARY, "red"); // CHARACTER
     Background background(32, -24, "pallet_town_i"); // BACKGROUND
-
-    // TEXT
-    Font font;
-    if(!font.loadFromFile("fonts/arial.ttf")) {
-        system("echo No se pudo cargar las fuentes&pause");
-        return EXIT_FAILURE;
-    }
-    Text text("CS-UNSA 2018", font);
+    GameText gameText("arial", "CS-UNSA 2018");
 
     // MUSIC
     Music music;
@@ -26,15 +20,7 @@ int main() {
         system("echo No se pudo cargar la musica&pause");
         return EXIT_FAILURE;
     }
-    
-    // SOUND
-    SoundBuffer buffer;
-    if(!buffer.loadFromFile("sounds/swish_3.wav")) {
-        system("echo No se pudo cargar el sonido&pause");
-        return EXIT_FAILURE;
-    }
-    Sound sound;
-    sound.setBuffer(buffer);
+    SoundFX sound("swish_3");
 
     music.play(); // Play the music
     sound.play(); // Play the sound
@@ -66,8 +52,8 @@ int main() {
         }
         // If a key is pressed, character's movDir will change
         if(character.isGrid(background.getBgSprite())) {
-            if(Keyboard::isKeyPressed(Keyboard::Z)) character.getMovSpeed() = 2;
-            else character.getMovSpeed() = 1;
+            if(Keyboard::isKeyPressed(Keyboard::Z)) character.getMovSpeed() = MOVSPEED * 2;
+            else character.getMovSpeed() = MOVSPEED;
             char &charMovDir = character.getMovDir();
             if(Keyboard::isKeyPressed(Keyboard::Up)) {
                 charMovDir = 'u';
@@ -84,14 +70,14 @@ int main() {
             } else charMovDir = 'i';
         }
         
-        character.update(walkingCamera);
+        character.update(mainCamera);
 
+        window.setView(mainCamera);
         window.clear(); // Clear screen
-        window.setView(walkingCamera);
         background.draw(window); // Draw the background
         character.draw(window); // Draw the character
+        gameText.draw(window); // Draw the string
         // window.draw(charCollisionBox);
-        window.draw(text); // Draw the string
         window.display(); // Update the window
     }
     return EXIT_SUCCESS;
