@@ -1,5 +1,6 @@
 #include "global.h"
 #include "character.h"
+#include "hud.h"
 #include "background.h"
 #include "gameText.h"
 #include "soundFX.h"
@@ -25,9 +26,8 @@ int main() {
     music.play(); // Play the music
     sound.play(); // Play the sound
 
-    Keyboard::Key lastKey = Keyboard::Unknown; // lastKey Variable
-
     window.setFramerateLimit(60);
+    bool isPMenu = 0;
 
     // Start the game loop
     while(window.isOpen())
@@ -47,26 +47,28 @@ int main() {
                             sound.play();
                             system("echo Se presiona");
                             break;
+                        case Keyboard::Return:
+                            if(character.isGrid(background.getBgSprite()))
+                                isPMenu = isPMenu ? 0 : 1;
+                            break;
+                        default: break;
                     } break;
+                default: break;
             }
         }
         // If a key is pressed, character's movDir will change
-        if(character.isGrid(background.getBgSprite())) {
+        if(character.isGrid(background.getBgSprite()) && !isPMenu) {
             if(Keyboard::isKeyPressed(Keyboard::Z)) character.getMovSpeed() = MOVSPEED * 2;
             else character.getMovSpeed() = MOVSPEED;
             char &charMovDir = character.getMovDir();
             if(Keyboard::isKeyPressed(Keyboard::Up)) {
                 charMovDir = 'u';
-                lastKey = event.key.code;
             } else if(Keyboard::isKeyPressed(Keyboard::Down)) {
                 charMovDir = 'd';
-                lastKey = event.key.code;
             } else if(Keyboard::isKeyPressed(Keyboard::Right)) {
                 charMovDir = 'r';
-                lastKey = event.key.code;
             } else if(Keyboard::isKeyPressed(Keyboard::Left)) {
                 charMovDir = 'l';
-                lastKey = event.key.code;
             } else charMovDir = 'i';
         }
         
@@ -78,6 +80,7 @@ int main() {
         character.draw(window); // Draw the character
         gameText.draw(window); // Draw the string
         // window.draw(charCollisionBox);
+        if(isPMenu) character.getPlayerHUD().draw(window);
         window.display(); // Update the window
     }
     return EXIT_SUCCESS;

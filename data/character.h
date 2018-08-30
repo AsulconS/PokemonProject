@@ -1,6 +1,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 #include "global.h"
+#include "hud.h"
 
 using namespace sf;
 
@@ -9,6 +10,7 @@ private:
     Sprite sprite;
     Texture texture;
     RectangleShape collisionBox;
+    HUD playerHUD;
     int movSpeed;
     char movDir;
     
@@ -24,6 +26,7 @@ public:
     // Getters
     Sprite &getCharSprite();
     RectangleShape &getCharCollisionBox();
+    HUD &getPlayerHUD();
     int &getMovSpeed();
     char &getMovDir();
 };

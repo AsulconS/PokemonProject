@@ -35,25 +35,29 @@ void Character::update(View &mainCamera) {
             sprite.setTextureRect(IntRect(24, 68, 16, 20));
             sprite.setOrigin(Vector2f(0, 0));
             sprite.setScale(Vector2f(SCALECONST, SCALECONST));
-            sprite.move(0, -movSpeed * SCALECONST); collisionBox.move(0, -movSpeed * SCALECONST); mainCamera.move(0, -movSpeed * SCALECONST);
+            sprite.move(0, -movSpeed * SCALECONST); collisionBox.move(0, -movSpeed * SCALECONST);
+            mainCamera.move(0, -movSpeed * SCALECONST); playerHUD.move(0, -movSpeed * SCALECONST);
             break;
         case 'd':
             sprite.setTextureRect(IntRect(24, 36, 16, 20));
             sprite.setOrigin(Vector2f(0, 0));
             sprite.setScale(Vector2f(SCALECONST, SCALECONST));
-            sprite.move(0, movSpeed * SCALECONST); collisionBox.move(0, movSpeed * SCALECONST); mainCamera.move(0, movSpeed * SCALECONST);
+            sprite.move(0, movSpeed * SCALECONST); collisionBox.move(0, movSpeed * SCALECONST);
+            mainCamera.move(0, movSpeed * SCALECONST); playerHUD.move(0, movSpeed * SCALECONST);
             break;
         case 'r':
             sprite.setTextureRect(IntRect(24, 100, 16, 20));
             sprite.setOrigin(Vector2f(16, 0));
             sprite.setScale(Vector2f(-SCALECONST, SCALECONST));
-            sprite.move(movSpeed * SCALECONST, 0); collisionBox.move(movSpeed * SCALECONST, 0); mainCamera.move(movSpeed * SCALECONST, 0);
+            sprite.move(movSpeed * SCALECONST, 0); collisionBox.move(movSpeed * SCALECONST, 0);
+            mainCamera.move(movSpeed * SCALECONST, 0); playerHUD.move(movSpeed * SCALECONST, 0);
             break;
         case 'l':
             sprite.setTextureRect(IntRect(24, 100, 16, 20));
             sprite.setOrigin(Vector2f(0, 0));
             sprite.setScale(Vector2f(SCALECONST, SCALECONST));
-            sprite.move(-movSpeed * SCALECONST, 0); collisionBox.move(-movSpeed * SCALECONST, 0); mainCamera.move(-movSpeed * SCALECONST, 0);
+            sprite.move(-movSpeed * SCALECONST, 0); collisionBox.move(-movSpeed * SCALECONST, 0);
+            mainCamera.move(-movSpeed * SCALECONST, 0); playerHUD.move(-movSpeed * SCALECONST, 0);
             break;
         default: break;
     }
@@ -61,5 +65,6 @@ void Character::update(View &mainCamera) {
 
 Sprite &Character::getCharSprite() { return sprite; }
 RectangleShape &Character::getCharCollisionBox() { return collisionBox; }
+HUD &Character::getPlayerHUD() { return playerHUD; }
 int &Character::getMovSpeed() { return movSpeed; }
 char &Character::getMovDir() { return movDir; }
