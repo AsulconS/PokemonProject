@@ -1,2 +1,7 @@
 Makefile
 HUDTemplate.xcf
+#-----------------
+#Still in progress
+animation.h
+animation.cpp
+#-----------------

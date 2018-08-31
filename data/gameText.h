@@ -2,22 +2,23 @@
 #define GAMETEXT_H
 #include "global.h"
 
-using namespace sf;
-
 class GameText {
-private:
-	Font font;
-	Text text;
+public:
+	GameText(std::string nFont, std::string nText);
 
+	void draw(sf::RenderWindow &window);
+
+// Getters
+	sf::Font &getFont();
+	sf::Text &getText();
+// -------
+
+private:
 	int fExitFailure();
 
-public:
-	GameText(std::string nameFont, std::string nText);
-
-	void draw(RenderWindow &window);
-
-	Font &getFont();
-	Text &getText();
+private:
+	sf::Font font;
+	sf::Text text;
 };
 
 #endif

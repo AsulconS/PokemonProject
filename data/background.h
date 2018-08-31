@@ -2,22 +2,23 @@
 #define BACKGROUND_H
 #include "global.h"
 
-using namespace sf;
-
 class Background {
-private:
-	Sprite background;
-	Texture sourceImage;
+public:
+	Background(const int xPos, const int yPos, std::string name);
 
+	void draw(sf::RenderWindow &window);
+
+// Getters
+	sf::Sprite &getSprite();
+	sf::Texture &getSrcImage();
+// -------
+
+private:
 	int fExitFailure();
 
-public:
-	Background(const int xPos, const int yPos, std::string nameOfBg);
-
-	void draw(RenderWindow &window);
-
-	Sprite &getBgSprite();
-	Texture &getSrcImage();
+private:
+	sf::Sprite background;
+	sf::Texture sourceImage;
 };
 
 #endif

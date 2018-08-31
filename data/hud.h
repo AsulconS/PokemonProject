@@ -2,25 +2,26 @@
 #define HUD_H
 #include "global.h"
 
-using namespace sf;
-
 class HUD {
-private:
-	Sprite sprite;
-	Texture sourceImage;
-	Vector2f position;
-
-	int fExitFailure();
-
 public:
 	HUD();
 
-	void draw(RenderWindow &window);
+	void draw(sf::RenderWindow &window);
 	void move(const int offsetX, const int offsetY);
 
-	Sprite &getHUDSprite();
-	Texture &getSrcImage();
-	Vector2f &getPosition();
+// Getters
+	sf::Sprite &getHUDSprite();
+	sf::Texture &getSrcImage();
+	sf::Vector2f &getPosition();
+// -------
+
+private:
+	int fExitFailure();
+
+private:
+	sf::Sprite sprite;
+	sf::Texture sourceImage;
+	sf::Vector2f position;
 };
 
 #endif

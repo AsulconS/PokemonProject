@@ -3,32 +3,32 @@
 #include "global.h"
 #include "hud.h"
 
-using namespace sf;
-
 class Character {
-private:
-    Sprite sprite;
-    Texture texture;
-    RectangleShape collisionBox;
-    HUD playerHUD;
-    int movSpeed;
-    char movDir;
-    
-    int fExitFailure();
-
 public:
     Character(const int xPos, const int yPos, std::string name);
-    bool isGrid(Sprite background);
 
-    void draw(RenderWindow &window);
-    void update(View &mainCamera);
+    void draw(sf::RenderWindow &window);
+    void update(sf::View &mainCamera);
+    bool isGrid(sf::Sprite background);
 
-    // Getters
-    Sprite &getCharSprite();
-    RectangleShape &getCharCollisionBox();
-    HUD &getPlayerHUD();
+// Getters
+    sf::Sprite &getSprite();
+    sf::RectangleShape &getCollisionBox();
+    HUD &getHUD();
     int &getMovSpeed();
     char &getMovDir();
+// -------
+
+private:
+    int fExitFailure();
+
+private:
+    sf::Sprite sprite;
+    sf::Texture texture;
+    sf::RectangleShape collisionBox;
+    HUD playerHUD;
+    int movSpeed;
+    char movDir; 
 };
 
 #endif

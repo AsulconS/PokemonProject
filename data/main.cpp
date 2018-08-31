@@ -1,30 +1,28 @@
 #include "global.h"
-#include "character.h"
-#include "hud.h"
+#include "animation.h"
 #include "background.h"
+#include "character.h"
 #include "gameText.h"
+#include "hud.h"
 #include "soundFX.h"
 
-using namespace sf;
-
 int main() {
-    RenderWindow window(VideoMode(240 * SCALECONST, 160 * SCALECONST), "Pokemon Project", Style::Close | Style::Titlebar); // WINDOW    The Native Resolution is 240 x 160 px
-    View mainCamera(FloatRect(0, 0, 240 * SCALECONST, 160 * SCALECONST)); // CAMERA
+    sf::RenderWindow window(sf::VideoMode(240 * SCALECONST, 160 * SCALECONST), "Pokemon Project", sf::Style::Close | sf::Style::Titlebar); // WINDOW    The Native Resolution is 240 x 160 px
+    sf::View mainCamera(sf::FloatRect(0, 0, 240 * SCALECONST, 160 * SCALECONST)); // CAMERA
 
     Character character(CHARX, CHARY, "red"); // CHARACTER
     Background background(32, -24, "pallet_town_i"); // BACKGROUND
     GameText gameText("arial", "CS-UNSA 2018");
 
     // MUSIC
-    Music music;
-    if(!music.openFromFile("resources/music/06_PalletTownTheme.mp3")) {
+    sf::Music music;
+    if(!music.openFromFile("resources/music/06_PalletTownTheme.flac")) {
         system("echo No se pudo cargar la musica&pause");
         return EXIT_FAILURE;
     }
     SoundFX sound("swish_3");
 
     music.play(); // Play the music
-    sound.play(); // Play the sound
 
     window.setFramerateLimit(60);
     bool isPMenu = 0;
@@ -32,19 +30,19 @@ int main() {
     // Start the game loop
     while(window.isOpen())
     {
-        Event evnt; // Create the event
+        sf::Event evnt; // Create the event
         while(window.pollEvent(evnt))
         {
             // Close window: exit
             switch(evnt.type) {
-                case Event::Closed:
+                case sf::Event::Closed:
                     system("echo Estuvo shido siono? xd");
                     window.close();
                     break;
-                case Event::KeyPressed:
+                case sf::Event::KeyPressed:
                     switch(evnt.key.code) {
-                        case Keyboard::Return:
-                            if(character.isGrid(background.getBgSprite()))
+                        case sf::Keyboard::Return:
+                            if(character.isGrid(background.getSprite()))
                                 isPMenu = isPMenu ? 0 : 1;
                             sound.play();
                             system("echo Menu");
@@ -55,17 +53,17 @@ int main() {
             }
         }
         // If a key is pressed, character's movDir will change
-        if(character.isGrid(background.getBgSprite()) && !isPMenu) {
-            if(Keyboard::isKeyPressed(Keyboard::Z)) character.getMovSpeed() = MOVSPEED * 2;
+        if(character.isGrid(background.getSprite()) && !isPMenu) {
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) character.getMovSpeed() = MOVSPEED * 2;
             else character.getMovSpeed() = MOVSPEED;
             char &charMovDir = character.getMovDir();
-            if(Keyboard::isKeyPressed(Keyboard::Up)) {
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 charMovDir = 'u';
-            } else if(Keyboard::isKeyPressed(Keyboard::Down)) {
+            } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
                 charMovDir = 'd';
-            } else if(Keyboard::isKeyPressed(Keyboard::Right)) {
+            } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
                 charMovDir = 'r';
-            } else if(Keyboard::isKeyPressed(Keyboard::Left)) {
+            } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                 charMovDir = 'l';
             } else charMovDir = 'i';
         }
@@ -78,8 +76,9 @@ int main() {
         character.draw(window); // Draw the character
         gameText.draw(window); // Draw the string
         // window.draw(charCollisionBox);
-        if(isPMenu) character.getPlayerHUD().draw(window);
+        if(isPMenu) character.getHUD().draw(window);
         window.display(); // Update the window
     }
+
     return EXIT_SUCCESS;
 }
