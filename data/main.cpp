@@ -12,7 +12,7 @@ int main() {
 
     Character character(CHARX, CHARY, "red"); // CHARACTER
     Background background(32, -24, "pallet_town_i"); // BACKGROUND
-    GameText gameText("arial", "CS-UNSA 2018");
+    GameText gameText("pokemonFont", "CS-UNSA 2018");
 
     // MUSIC
     sf::Music music;
