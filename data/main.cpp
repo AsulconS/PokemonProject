@@ -8,7 +8,7 @@
 using namespace sf;
 
 int main() {
-    RenderWindow window(VideoMode(240 * SCALECONST, 160 * SCALECONST), "Pokemon Project"); // WINDOW    The Native Resolution is 240 x 160 px
+    RenderWindow window(VideoMode(240 * SCALECONST, 160 * SCALECONST), "Pokemon Project", Style::Close | Style::Titlebar); // WINDOW    The Native Resolution is 240 x 160 px
     View mainCamera(FloatRect(0, 0, 240 * SCALECONST, 160 * SCALECONST)); // CAMERA
 
     Character character(CHARX, CHARY, "red"); // CHARACTER
