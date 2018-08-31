@@ -32,17 +32,17 @@ int main() {
     // Start the game loop
     while(window.isOpen())
     {
-        Event event; // Create the event
-        while(window.pollEvent(event))
+        Event evnt; // Create the event
+        while(window.pollEvent(evnt))
         {
             // Close window: exit
-            switch(event.type) {
+            switch(evnt.type) {
                 case Event::Closed:
                     system("echo Estuvo shido siono? xd");
                     window.close();
                     break;
                 case Event::KeyPressed:
-                    switch(event.key.code) {
+                    switch(evnt.key.code) {
                         case Keyboard::Space:
                             sound.play();
                             system("echo Se presiona");
