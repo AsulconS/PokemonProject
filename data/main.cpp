@@ -17,7 +17,7 @@ int main() {
 
     // MUSIC
     Music music;
-    if(!music.openFromFile("resources/music/nice_music.wav")) {
+    if(!music.openFromFile("resources/music/06_PalletTownTheme.mp3")) {
         system("echo No se pudo cargar la musica&pause");
         return EXIT_FAILURE;
     }
@@ -43,13 +43,11 @@ int main() {
                     break;
                 case Event::KeyPressed:
                     switch(evnt.key.code) {
-                        case Keyboard::Space:
-                            sound.play();
-                            system("echo Se presiona");
-                            break;
                         case Keyboard::Return:
                             if(character.isGrid(background.getBgSprite()))
                                 isPMenu = isPMenu ? 0 : 1;
+                            sound.play();
+                            system("echo Menu");
                             break;
                         default: break;
                     } break;
