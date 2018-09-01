@@ -1,7 +1,7 @@
 #include "hud.h"
 
 HUD::HUD() {
-	if(!sourceImage.loadFromFile("resources/images/HUD/pauseMenu.png")) {
+	if(!sourceImage.loadFromFile("resources/images/HUD/_.png")) {
         system("echo No se pudo cargar el HUD&pause");
         fExitFailure();
     }

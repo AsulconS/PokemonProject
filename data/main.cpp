@@ -10,13 +10,13 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(240 * SCALECONST, 160 * SCALECONST), "Pokemon Project", sf::Style::Close | sf::Style::Titlebar); // WINDOW    The Native Resolution is 240 x 160 px
     sf::View mainCamera(sf::FloatRect(0, 0, 240 * SCALECONST, 160 * SCALECONST)); // CAMERA
 
-    Character character(CHARX, CHARY, "red"); // CHARACTER
-    Background background(32, -24, "pallet_town_i"); // BACKGROUND
-    GameText gameText("pokemonFont", "CS-UNSA 2018");
+    Character character(CHARX, CHARY, "_"); // CHARACTER
+    Background background(32, -24, "testing01"); // BACKGROUND
+    GameText gameText("PressStart2P", "CS-UNSA 2018");
 
     // MUSIC
     sf::Music music;
-    if(!music.openFromFile("resources/music/06_PalletTownTheme.flac")) {
+    if(!music.openFromFile("resources/music/_")) {
         system("echo No se pudo cargar la musica&pause");
         return EXIT_FAILURE;
     }
